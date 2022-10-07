@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tugasfigma/Register.dart';
+import 'package:tugasfigma/SharedPref.dart';
 import 'package:tugasfigma/login.dart';
 
-void main() {
+Future<void> main() async{
   runApp(const MyApp());
+  await SharedPref.init();
 }
+
+// void main() {
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
