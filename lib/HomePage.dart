@@ -23,6 +23,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  ThemeData themeData = ThemeData.light();
+  /* fungsi mengubah tema sesuai inputan parameter */
+  void setTheme(bool isDarkmode) {
+    setState(() {
+      /* jika isDarkmode true maka ThemeData adalah dark dan sebaliknya */
+      themeData = (isDarkmode) ? ThemeData.dark() : ThemeData.light();
+
+      /* simpan nilai boolean pada shared preferences */
+      SharedPref.pref?.setBool('isDarkmode', isDarkmode);
+      print(isDarkmode);
+    });
+  }
+
+  /* hanya dijalankan sekali ketika halaman / class MyApp pertama kali di jalankan */
+  @override
+  void initState() {
+    /* default / tema awal dibuat sesuai data yang tersimpan pada shared preferences
+    atau jika masih kosong (belum ada yang set) maka akan di berikan nilai false */
+    bool isDarkmode = SharedPref.pref?.getBool('isDarkmode') ?? false;
+    setTheme(isDarkmode);
+
+    super.initState();
+  }
+
   DateTime timeBackPressed = DateTime.now();
   int _currentIndex = 0;
   @override
