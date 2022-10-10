@@ -4,7 +4,15 @@ import 'package:tugasfigma/Register.dart';
 import 'package:tugasfigma/SharedPref.dart';
 import 'package:tugasfigma/main.dart';
 
-class login extends StatelessWidget {
+class login extends StatefulWidget {
+  Function setTheme;
+  login({required this.setTheme});
+
+  @override
+  State<login> createState() => _loginState();
+}
+
+class _loginState extends State<login> {
   @override
   Widget build(BuildContext context) {
     // SharedPref.pref.setString('isDarkMode','ini sedang mode');
@@ -16,16 +24,17 @@ class login extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        leading:
-        Builder (
-          builder: (BuildContext context) {
-            return IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyApp()));
-                }, icon: const Icon(Icons.arrow_back, color: Colors.black, ));
-          }
-        ),
+        leading: Builder(builder: (BuildContext context) {
+          return IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => MyApp()));
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ));
+        }),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 35),
@@ -68,7 +77,7 @@ class login extends StatelessWidget {
                 labelText: "Email Address",
                 hintText: "Email Address",
                 contentPadding:
-                EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                 hintStyle: const TextStyle(
                   fontFamily: 'Poppins Light',
                   fontSize: 16,
@@ -89,7 +98,7 @@ class login extends StatelessWidget {
                 labelText: "Password",
                 hintText: "Password",
                 contentPadding:
-                EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                 hintStyle: const TextStyle(
                   fontFamily: 'Poppins Light',
                   fontSize: 16,
@@ -113,7 +122,10 @@ class login extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(
+                      builder: (context) => HomePage(
+                            setTheme: widget.setTheme,
+                          )),
                 );
               },
               child: const Text("Login",
@@ -161,4 +173,3 @@ class login extends StatelessWidget {
     );
   }
 }
-
