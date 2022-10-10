@@ -5,19 +5,19 @@ import 'package:bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:tugasfigma/Setting.dart';
 import 'SharedPref.dart';
 
+// Future<void> main() async {
+//   /* WidgetFlutterBinding digunakan untuk berinteraksi dengan mesin Flutter.
+//   SharedPref.init() perlu memanggil kode asli untuk menginisialisasi, oleh karena itu
+//   perlu memanggil ensureInitialized() untuk memastikan terdapat instance yang bisa dijalankan */
 
-Future<void> main() async {
-  /* WidgetFlutterBinding digunakan untuk berinteraksi dengan mesin Flutter.
-  SharedPref.init() perlu memanggil kode asli untuk menginisialisasi, oleh karena itu
-  perlu memanggil ensureInitialized() untuk memastikan terdapat instance yang bisa dijalankan */
-
-  WidgetsFlutterBinding.ensureInitialized();
-  await SharedPref.init();
-  // runApp(const HomePage());
-}
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await SharedPref.init();
+//   // runApp(const HomePage());
+// }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  Function setTheme;
+  HomePage({Key? key, required this.setTheme}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   void setTheme(bool isDarkmode) {
     setState(() {
       /* jika isDarkmode true maka ThemeData adalah dark dan sebaliknya */
-      themeData = (isDarkmode)? ThemeData.dark():ThemeData.light();
+      themeData = (isDarkmode) ? ThemeData.dark() : ThemeData.light();
 
       /* simpan nilai boolean pada shared preferences */
       SharedPref.pref?.setBool('isDarkmode', isDarkmode);
@@ -79,11 +79,11 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: const Icon(Icons.settings,
                 color: const Color.fromARGB(255, 253, 251, 251)),
-
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Setting(setTheme: setTheme)),
+                MaterialPageRoute(
+                    builder: (context) => Setting(setTheme: widget.setTheme)),
               );
             },
           )
