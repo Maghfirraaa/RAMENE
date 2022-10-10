@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tugasfigma/HomePage.dart';
 import 'package:tugasfigma/Register.dart';
+import 'package:tugasfigma/SharedPref.dart';
 import 'package:tugasfigma/main.dart';
 
 class login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // SharedPref.pref.setString('isDarkMode','ini sedang mode');
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
